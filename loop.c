@@ -18,26 +18,23 @@ int main()
   volatile long n = 0;
   unsigned long rip;
 
-  // Get current program counter
-  asm("call here\n"
-      "here: pop %[var]\n"
+  // Get the current program counter.
+  __asm__ __volatile__
+    ("call here\n"
+      "here: pop %%rax\n"
+      "      add $0x8, %%rax\n"
+      "      mov %%rax, %[var]\n"
       : [var] "=r" (rip));
 
-  /*
-   * At this point, we can either subtract 5 from rip, so we jump back to the
-   * "call" instruction (see objdump; depends on optimization level), or we can
-   * advance it by 4 to get to the start of the printf call setup.  Obviously,
-   * we only need to get the address once, so we choose to advance by four.
-   */
-  rip += 4;
-
+  // Print an incrementing counter and the jump position
   printf("n=%ld rip=0x%lx\n", n++, rip);
 
-  // Jump back to original RIP
-  asm("movq %[addr], %%rax\n"
-      "jmpq *%%rax\n"
-      :
-      : [addr] "r" (rip));
+  // Jump back to the first instruction after the assembly block.
+  __asm__ __volatile__
+    ("movq %[addr], %%rax\n"
+     "jmpq *%%rax\n"
+     :
+     : [addr] "r" (rip));
 
   return 0;
 }

@@ -72,5 +72,5 @@ disassembly.
 
 License
 -------
-Put in the public domain by the author, Christian Stigen Larsen
+Put in the public domain by the author, Christian Stigen Larsen  
 2015-09

@@ -31,7 +31,7 @@ int main()
    */
   rip += 4;
 
-  printf("n=%ld rip=%lx\n", n++, rip);
+  printf("n=%ld rip=0x%lx\n", n++, rip);
 
   // Jump back to original RIP
   asm("movq %[addr], %%rax\n"

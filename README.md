@@ -18,11 +18,11 @@ address trick doesn't seem to work on OSX with llvm 6.1).
 
 The increment of eight is kinda tricky due to the fact that it relies on the
 compiler not optimizing anything. That's why you probably should compile with
-`-Os` instead of anything else. You can do an `objdump -d loop` on the code to
-adjust this offset, but, at least, `-O3` usually garbles your code so
-thoroughly that it won't work (next up: insert pragmas to deny optimizations
-for the assembly blocks).  This can be seen directly by looking at the
-disassembly:
+`-Os` instead of anything else (update: Works with -O3 also). You can do an
+`objdump -d loop` on the code to adjust this offset, but, at least, `-O3`
+usually garbles your code so thoroughly that it won't work (next up: insert
+pragmas to deny optimizations for the assembly blocks).  This can be seen
+directly by looking at the disassembly:
 
       0000000100000f20 <_main>:
          100000f20:   55                      push   %rbp

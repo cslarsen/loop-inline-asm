@@ -7,7 +7,7 @@ run: all
 	./loop
 
 dis: all
-	objdump -d loop
+	objdump -ldS loop
 
 clean:
 	rm -f $(TARGETS)

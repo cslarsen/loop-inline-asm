@@ -53,10 +53,12 @@ disassembly:
          100000f65:   c3                      retq
 
 Above, I've indicated (`==>`) the start and end of the first assembly block. If
-you count instructions from `100000f33` to the next marker, you should arrive
-at the same number as I (unless you *actually* know assembly; it still seems to
-me that one store has been optimized away, and that it's just a happy
-coincidence that I can reuse `rbx`. Let me know).
+you count instructions from `0x100000f33` to the next marker, you should arrive
+at the same number as I. If you do `objdump -ldS loop`, then you'll see that
+incrementing by eight actually advances to the next source code line. As a
+coincidence, the compiler sees that we don't actually have to store the value
+in the `rip` C variable, and just optimizes a memory store away by using the
+`rbx` register.
 
 Later on, we just jump back to the location stored in `rip`:
 
@@ -66,9 +68,8 @@ Later on, we just jump back to the location stored in `rip`:
        :
        : [addr] "r" (rip));
 
-I've tested this on 64-bit OSX using llvm 6.1 via the `gcc` command line
-invocation. To test yourself, try `make run` and `make dis` to see the
-disassembly.
+I've tested this on 64-bit OSX using gcc (llvm 6.1) and on Linux using gcc
+4.4.7. To test yourself, try `make run` and `make dis` to see the disassembly.
 
 License
 -------

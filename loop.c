@@ -6,7 +6,7 @@
  * Disassemble with: objdump -d loop
  *
  * Works only on x86-64.
- * Tested on Mac OSX with gcc/llvm 6.1.0.
+ * Tested on Mac OSX with gcc/llvm 6.1.0 and Linux with gcc 4.4.7.
  *
  * Written by Christian Stigen Larsen
  */
